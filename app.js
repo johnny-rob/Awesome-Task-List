@@ -26,21 +26,26 @@ loadRequest.done(function(dataFromServer) {
   })
 })
 
-/* Adding an item to the list */
+//Check to see if anything was entered
 $('#add-form').on('submit', function(event) {
-  event.preventDefault()
-  var itemDescription = event.target.itemDescription.value
-  var creationRequest = $.ajax({
-	  type: 'POST',
-	  url: "http://listalous.herokuapp.com/lists/JPinney/items",
-	  data: { description: itemDescription, completed: false }
-	})
-  creationRequest.done(function(itemDataFromServer) {
-	  addItemToPage(itemDataFromServer)
-	
-	//Clear the input bar
-	$("#create").val('');
-	})
+	if($('#create').val() === "") {}
+	else {
+		
+		// If something was entered, adding an item to the list
+		  event.preventDefault()
+		  var itemDescription = event.target.itemDescription.value
+		  var creationRequest = $.ajax({
+			  type: 'POST',
+			  url: "http://listalous.herokuapp.com/lists/JPinney/items",
+			  data: { description: itemDescription, completed: false }
+			})
+		  creationRequest.done(function(itemDataFromServer) {
+			  addItemToPage(itemDataFromServer)
+			
+			//Clear the input bar
+			$("#create").val('');
+			})
+		}
 })
 
 /* Marking an item complete*/
