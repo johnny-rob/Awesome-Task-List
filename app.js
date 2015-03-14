@@ -8,9 +8,11 @@ var addItemToPage = function(itemData) {
 	item.find('.description').text(itemData.description);
 	if(itemData.completed) {
 		item.addClass('completed');
-	}
+	} 
 	list.append(item);
 }
+
+
 var loadRequest = $.ajax({
   type: 'GET',
   url: "https://listalous.herokuapp.com/lists/JPinney/"
@@ -46,7 +48,7 @@ $('#list').on('click', '.complete-button', function(event) {
 	var itemId = item.attr('data-id')
 	var updateRequest = $.ajax({
 	  type: 'PUT',
-	  url: "https://listalous.herokuapp.com/lists/YOUR-LIST-NAME-HERE/items/" + itemId,
+	  url: "https://listalous.herokuapp.com/lists/JPinney/items/" + itemId,
 	  data: { completed: !isItemCompleted }
 	})
 	updateRequest.done(function(itemData) {
@@ -57,3 +59,21 @@ $('#list').on('click', '.complete-button', function(event) {
 	  }
 	})
 })
+
+/* Deleting an Item */
+$('#list').on('click', '.delete-button', function(event) {
+  	var item = $(event.target).parent()
+	var isItemCompleted = item.hasClass('completed')
+	var itemId = item.attr('data-id')
+	console.log(item);
+//Removes from the server
+	var updateRequest = $.ajax({
+	  type: 'DELETE',
+	  url: "https://listalous.herokuapp.com/lists/JPinney/items/" + itemId,
+	  data: {}
+		})
+	//Removes from the DOM
+	updateRequest.done(function(itemData) {
+	item.hide();
+})
+	})
