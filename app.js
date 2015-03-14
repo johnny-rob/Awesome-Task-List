@@ -82,5 +82,17 @@ $('#list').on('click', '.delete-button', function(event) {
 	//Removes from the DOM
 	updateRequest.done(function(itemData) {
 	item.hide();
-})
 	})
+})
+
+//Editing an existing entry
+$('#list').on('blur', '.description', function(event) {
+	var newText = $(this).text();
+	var item = $(event.target).parent()
+	var itemId = item.attr('data-id')
+	var updateRequest = $.ajax({
+	  type: 'PUT',
+	  url: "https://listalous.herokuapp.com/lists/JPinney/items/" + itemId,
+	  data: { description: newText}
+	})
+})
