@@ -12,7 +12,6 @@ var addItemToPage = function(itemData) {
 	list.append(item);
 }
 
-
 var loadRequest = $.ajax({
   type: 'GET',
   url: "https://listalous.herokuapp.com/lists/JPinney/"
@@ -38,6 +37,9 @@ $('#add-form').on('submit', function(event) {
 	})
   creationRequest.done(function(itemDataFromServer) {
 	  addItemToPage(itemDataFromServer)
+	
+	//Clear the input bar
+	$("#create").val('');
 	})
 })
 
